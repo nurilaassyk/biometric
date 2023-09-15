@@ -3,9 +3,12 @@ from rest_framework import serializers
 from api.models import People
 from datetime import datetime
 
+from api.validators import IINValidator, iin_validate
+
 
 class PeopleSerializer(serializers.ModelSerializer):
     age = serializers.SerializerMethodField()
+    iin = serializers.CharField(validators=[IINValidator, iin_validate])
 
     class Meta:
         model = People
@@ -22,5 +25,3 @@ class PeopleSerializer(serializers.ModelSerializer):
                 (current_date.month, current_date.day) < (birthdate.month, birthdate.day))
 
         return age
-
-

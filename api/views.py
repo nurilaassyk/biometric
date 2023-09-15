@@ -14,7 +14,7 @@ class PeopleCreateView(APIView):
             people = serializer.save(iin=iin)
             return Response(serializer.data)
         else:
-            Response({'detail': 'Invalid input', 'errors': serializer.errors}, status=400)
+            return Response(data={'detail': 'Invalid input'}, status=400)
 
 
 class PeopleReadView(RetrieveAPIView):
