@@ -7,11 +7,12 @@ from api.serializers import PeopleSerializer
 
 
 class PeopleCreateView(APIView):
+    serializer_class = PeopleSerializer
+
     def post(self, request, *args, **kwargs):
         serializer = PeopleSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            iin = serializer.validated_data['iin']
-            people = serializer.save(iin=iin)
+        if serializer.is_valid():
+            people = serializer.save()
             return Response(serializer.data)
         else:
             return Response(data={'detail': 'Invalid input'}, status=400)

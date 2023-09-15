@@ -14,7 +14,7 @@ class PeopleSerializer(serializers.ModelSerializer):
         model = People
         fields = ['iin', 'age']
 
-    def get_age(self, obj):
+    def get_age(self, obj) -> int:
         iin = obj.iin
         year = int(iin[:2]) + 1900
         month = int(iin[2:4])
